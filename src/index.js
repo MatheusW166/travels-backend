@@ -1,11 +1,14 @@
 import express from "express";
-import httpStatus from "http-status";
+import passengerRoutes from "./routes/passenger.routes.js";
+import cors from "cors";
+import { config } from "dotenv";
+config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.get("/health", (req, res) => res.sendStatus(httpStatus.OK));
+app.use(cors());
+app.use(express.json());
+app.use(passengerRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is up and running or port: ${port}`);
-})
+app.listen(PORT, () => console.log(`🚀 Server running on port: ${PORT}`));
