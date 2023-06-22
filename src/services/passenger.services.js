@@ -4,10 +4,16 @@ const PASSENGERS_PER_PAGE = 25;
 const MAX_PASSENGERS_PER_PAGE = 100;
 
 async function getTravelsCountByPassenger({ name, page }) {
-    const offset = page ? page * PASSENGERS_PER_PAGE : 0;
+    const offset = page ? (page - 1) * PASSENGERS_PER_PAGE : 0;
     const limit = offset ? PASSENGERS_PER_PAGE : MAX_PASSENGERS_PER_PAGE;
 
-    return await passengerRepository.getTravelsCountByPassenger({ name, offset, limit });
+    const result = await passengerRepository.getTravelsCountByPassenger({ name, offset, limit });
+
+    if (result.length > MAX_PASSENGERS_PER_PAGE) {
+        throw new Error("results limit exceeded");
+    }
+
+    return result;
 }
 
 const passengerServices = { getTravelsCountByPassenger };
