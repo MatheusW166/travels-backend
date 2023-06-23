@@ -1,4 +1,5 @@
 import passengerServices from "../services/passenger.services.js";
+import errorMapping from "../utils/errorMapping.utils.js";
 
 async function getNumberOfTravelsByPassenger(req, res) {
     const { name, page } = req.query;
@@ -14,7 +15,8 @@ async function getNumberOfTravelsByPassenger(req, res) {
         const travelsCount = await passengerServices.getTravelsCountByPassenger({ name, page });
         res.send(travelsCount);
     } catch (err) {
-        res.status(500).send(err.message);
+        const { status, message } = errorMapping.toResponse(err);
+        res.status(status).send(message);
     }
 }
 

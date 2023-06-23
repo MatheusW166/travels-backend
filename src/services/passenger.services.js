@@ -1,4 +1,5 @@
 import passengerRepository from "../repositories/passenger.repository.js";
+import { ResultsLimitExceeded } from "../errors/services.errors.js";
 
 const PASSENGERS_PER_PAGE = 25;
 const MAX_PASSENGERS_PER_PAGE = 100;
@@ -10,7 +11,7 @@ async function getTravelsCountByPassenger({ name, page }) {
     const result = await passengerRepository.getTravelsCountByPassenger({ name, offset, limit });
 
     if (result.length > MAX_PASSENGERS_PER_PAGE) {
-        throw new Error("results limit exceeded");
+        throw new ResultsLimitExceeded();
     }
 
     return result;
