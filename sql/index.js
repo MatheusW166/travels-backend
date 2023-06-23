@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { faker } from '@faker-js/faker';
+import { PrismaClient } from "@prisma/client";
+import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
@@ -26,8 +26,8 @@ const NUM_OF_VALUES = 100_000;
           ]
         }
       }
-    })
+    });
   }
   const end = Date.now();
   console.log(`OPERATION FINISHED IN ${(end - start) / 1000} SECONDS`);
-})()
+})();

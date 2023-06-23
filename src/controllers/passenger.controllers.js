@@ -11,7 +11,7 @@ async function getNumberOfTravelsByPassenger(req, res) {
             return res.status(422).send("page must be greater than zero");
         }
 
-        const travelsCount = await passengerServices.getTravelsCountByPassenger({ name, page })
+        const travelsCount = await passengerServices.getTravelsCountByPassenger({ name, page });
         res.send(travelsCount);
     } catch (err) {
         res.status(500).send(err.message);
